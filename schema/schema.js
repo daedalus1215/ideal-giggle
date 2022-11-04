@@ -99,16 +99,18 @@ const mutation = new GraphQLObjectType({
             type: UserType, // what we will be returning from the resolve function.
             args: {
                 firstName: { type: new GraphQLNonNull(GraphQLString) },
-                arg: { type: new GraphQLNonNull(GraphQLInt) },
+                age: { type: new GraphQLNonNull(GraphQLInt) },
                 companyId: { type: GraphQLString }
             },
-            resolve() {
-
+            resolve(parentValue, { firstName, age }) {
+                return axios.post('http://localhost:3000/users', { firstName, age })
+                    .then(res => res.data);
             }
         }
     }
 })
 
 module.exports = new GraphQLSchema({
-    query: RootQuery
+    query: RootQuery,
+    mutation
 })
