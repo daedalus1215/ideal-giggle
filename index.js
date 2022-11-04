@@ -1,16 +1,5 @@
-const express = require('express');
-const expressGraphQL = require('express-graphql').graphqlHTTP;
-const schema = require('./schema/schema');
-
-const app = express();
-
-
-app.use('/graphql', expressGraphQL({
-    schema,
-    graphiql: true
-}))
+const app = require('./server/server');
 
 app.listen(4000, () => {
-    console.log('Listening');
-
-})
+  console.log('Listening');
+});
