@@ -1,0 +1,31 @@
+.item {
+    background: white;
+    line-height: 40px;
+    color: #555;
+}
+  
+.item:nth-child(2n) {
+    background: #f1f1f1;
+}
+  
+.completed {
+    color: gray;
+    text-decoration: line-through;
+}
+  
+.btnTrash {
+    height: 40px;
+    width: 0px;
+    margin-right: 20px;
+    background: #e74c3c;
+    color: #fff;
+    text-align: center;
+    display: inline-block;
+    transition: 0.2s linear;
+    opacity: 0;
+}
+
+.btnTrash:hover {
+    width: 40px;
+    opacity: 1.0;
+}
