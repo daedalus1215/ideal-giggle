@@ -8,7 +8,8 @@ const {
     GraphQLString,
     GraphQLInt,
     GraphQLSchema,
-    GraphQLList
+    GraphQLList,
+    GraphQLNonNull
 } = graphql;
 
 
@@ -89,8 +90,24 @@ const RootQuery = new GraphQLObjectType({
             }
         }
     }
-})
+});
 
+const mutation = new GraphQLObjectType({
+    name: 'Mutation',
+    fields: {
+        addUser: {
+            type: UserType, // what we will be returning from the resolve function.
+            args: {
+                firstName: { type: new GraphQLNonNull(GraphQLString) },
+                arg: { type: new GraphQLNonNull(GraphQLInt) },
+                companyId: { type: GraphQLString }
+            },
+            resolve() {
+
+            }
+        }
+    }
+})
 
 module.exports = new GraphQLSchema({
     query: RootQuery
