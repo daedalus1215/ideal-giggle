@@ -4,6 +4,7 @@ const expressGraphQL = require('express-graphql');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const schema = require('./schema/schema');
+const cors = require('cors');
 
 const app = express();
 
@@ -12,6 +13,9 @@ const MONGO_URI = 'mongodb://localhost:27017';
 if (!MONGO_URI) {
   throw new Error('You must provide a MongoLab URI');
 }
+
+
+app.use(cors());
 
 mongoose.Promise = global.Promise;
 mongoose.connect(MONGO_URI);
