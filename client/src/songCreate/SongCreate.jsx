@@ -1,29 +1,33 @@
 import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { useMutation } from '@apollo/client';
+import { hashHistory } from 'react-router';
+import Input from '../components/Input';
+import styles from './SongCreate.module.css';
+import { addSong, fetchSongs } from '../queries';
 
-const query = gql`
-mutation AddSong($title: String){
-    addSong(title: $title) {
-      id
-      title
-    }
-  }
-`;
 const SongCreate = () => {
-    const [mutateFunction, { data, loading, error }] = useMutation(query);
+    const [mutateFunction, { data, loading, error }] = useMutation(addSong);
     const [title, setTitle] = useState('');
+
 
     const onSubmit = event => {
         event.preventDefault();
-        mutateFunction({ variables: { title } })
+        mutateFunction({
+            variables: { title },
+            refetchQueries: [{ fetchSongs }]
+        }).then(() => {
+            hashHistory.push('/')
+            window.location.reload(); // hack for the moment. Probs needs to update React-Router.
+        });
     };
 
-    console.log('data', data)
     return (<div>
         <h3>Create a New Song</h3>
-        <form onSubmit={onSubmit}>
+        <form
+            className={styles.form}
+            onSubmit={onSubmit}>
             <label>Song Title:</label>
-            <input
+            <Input
                 onChange={event => setTitle(event.target.value)}
                 value={title}
             />
