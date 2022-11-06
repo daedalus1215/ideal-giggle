@@ -27,14 +27,10 @@ const client = new ApolloClient({
 });
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
     <ApolloProvider client={client}>
       <Router history={hashHistory}>
-        <Route path="/" component={App}>
-          <IndexRoute component={SongList} />
-        </Route>
-        <Route path="song/new" component={SongCreate} />
+        <Route path="/" component={SongList} />
+        <Route path="/song/new" component={SongCreate} />
       </Router>
     </ApolloProvider >
-  </React.StrictMode>
 )
