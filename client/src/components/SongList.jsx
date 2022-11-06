@@ -11,9 +11,12 @@ const query = gql`
 `;
 const SongList = () => {
   const { loading, error, data } = useQuery(query);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-  return data?.songs?.map(song => <li key={song.id}>{song.title}</li>);
+
+  return (<>
+    {loading && (<p>Loading...</p>)}
+    {error && (<p>Error :(</p>)}
+    {data?.songs?.map(song => (<li key={song.id} className="collection-item">{song.title}</li>))}
+  </>)
 };
 
 export default SongList;
