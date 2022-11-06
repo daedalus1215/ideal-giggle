@@ -2,11 +2,11 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import SongList from './components/SongList';
+import SongList from './songList/SongList';
 import { ApolloClient, InMemoryCache, ApolloProvider, from, HttpLink } from '@apollo/client';
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { onError } from '@apollo/client/link/error';
-
+import SongCreate from './songCreate/SongCreate';
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
   if (graphqlErrors) {
@@ -28,12 +28,13 @@ const client = new ApolloClient({
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-   <ApolloProvider client={client}>
-    <Router history={hashHistory}>
-      <Route path="/" component={App}>
-        <IndexRoute component={SongList} />
-      </Route>
-    </Router>
-  </ApolloProvider >
+    <ApolloProvider client={client}>
+      <Router history={hashHistory}>
+        <Route path="/" component={App}>
+          <IndexRoute component={SongList} />
+        </Route>
+        <Route path="song/new" component={SongCreate} />
+      </Router>
+    </ApolloProvider >
   </React.StrictMode>
 )
