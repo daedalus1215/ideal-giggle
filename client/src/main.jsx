@@ -7,6 +7,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider, from, HttpLink } from '@ap
 import { Router, Route, hashHistory, IndexRoute } from 'react-router';
 import { onError } from '@apollo/client/link/error';
 import SongCreate from './songCreate/SongCreate';
+import SongDetail from './songDetail/SongDetail';
 
 const errorLink = onError(({ graphqlErrors, networkError }) => {
   if (graphqlErrors) {
@@ -31,6 +32,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       <Router history={hashHistory}>
         <Route path="/" component={SongList} />
         <Route path="/song/new" component={SongCreate} />
+        <Route path="/song/:id" component={SongDetail} />
       </Router>
     </ApolloProvider >
 )

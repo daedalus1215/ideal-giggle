@@ -1,11 +1,13 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
 import { deleteSong } from '../queries';
+import { hashHistory} from 'react-router';
 
 const SongItem = ({ id, title }) => {
     const [mutateFunction] = useMutation(deleteSong, { variables: { id } });
 
     return (<li
+    onClick={() => hashHistory.push(`/song/${id}`)}
         className="collection-item">
         <span>
             {title}

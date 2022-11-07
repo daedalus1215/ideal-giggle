@@ -1,6 +1,5 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import { Link } from 'react-router';
 import { fetchSongs } from '../queries';
 import { hashHistory } from 'react-router';
 import SongItem from './SongItem';
