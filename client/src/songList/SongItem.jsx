@@ -1,26 +1,30 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
 import { deleteSong } from '../queries';
-import { hashHistory} from 'react-router';
+import { hashHistory } from 'react-router';
+import styles from './SongItem.module.css';
 
 const SongItem = ({ id, title }) => {
     const [mutateFunction] = useMutation(deleteSong, { variables: { id } });
 
     return (<li
-    onClick={() => hashHistory.push(`/song/${id}`)}
-        className="collection-item">
-        <span>
+        className={styles.li}>
+        <span
+            className={styles.item}
+            onClick={() => hashHistory.push(`/song/${id}`)}
+        >
             {title}
-            <button
-                onClick={(event) => {
-                    mutateFunction()
-                        .then(() => {
-                            window.location.reload(); // hack for the moment. Probs needs to update React-Router.
-                        });
-                }}>
-                <span><i className="fa fa-trash" />Delete</span>
-            </button>
         </span>
+
+        <button
+            onClick={(event) => {
+                event.preventDefault();
+                mutateFunction()
+                    .then(() => {
+                    });
+            }}>
+            <span><i className="fa fa-trash" />Delete</span>
+        </button>
     </li>)
 }
 

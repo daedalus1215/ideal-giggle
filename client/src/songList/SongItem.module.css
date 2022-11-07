@@ -1,0 +1,19 @@
+.li {
+    text-align: left;
+    cursor: pointer;
+    flex-direction: row;
+    justify-content: space-between;
+    display: flex;
+    width: 300px;
+    margin: 10px auto;
+    padding: 2px;
+    border-bottom: 1px solid green;
+}
+
+.item {
+    flex: 8;
+}
+
+.li:hover {
+    background-color: rgba(255,255,255, .5);
+}

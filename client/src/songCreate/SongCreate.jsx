@@ -16,8 +16,8 @@ const SongCreate = () => {
             variables: { title },
             refetchQueries: [{ fetchSongs }]
         }).then(() => {
-            hashHistory.push('/')
-            window.location.reload(); // hack for the moment. Probs needs to update React-Router.
+            hashHistory.push('/');
+            window.location.reload();
         });
     };
 

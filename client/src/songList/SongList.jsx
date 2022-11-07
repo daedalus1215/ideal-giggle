@@ -6,14 +6,19 @@ import SongItem from './SongItem';
 
 const SongList = () => {
   const { loading, error, data } = useQuery(fetchSongs);
+  const songs = data?.songs;
 
   return (<>
     {loading && (<p>Loading...</p>)}
     {error && (<p>Error :(</p>)}
     <ul>
-      {data?.songs?.map(({ id, title }) => (<SongItem key={id} id={id} title={title} />))}
+      {songs && songs.map(({ id, title }) => (
+        <SongItem key={id} id={id} title={title} />)
+      )}
     </ul>
-    <button to="/song/new" onClick={() => { hashHistory.push("/song/new"); window.location.reload() }}>
+
+    <button
+      onClick={() => { hashHistory.push("/song/new"); }}>
       <span><i className='fa fa-plus' />Add</span>
     </button>
   </>)

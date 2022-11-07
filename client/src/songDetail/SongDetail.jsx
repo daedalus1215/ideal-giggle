@@ -4,17 +4,21 @@ import { fetchSong } from '../queries';
 import styles from './SongDetail.module.css';
 
 const SongDetail = ({ params }) => {
-    console.log('props', params.id)
     const { loading, error, data } = useQuery(fetchSong, { variables: { id: params.id } });
-    console.log('id', data)
+    const song = data?.song;
+
     return <div>
         <h3>
             SongDetail
         </h3>
 
-        {!loading && !error && (<div className={styles.container}>
-            <div>id: {data.song.id}</div>
-            <div>title: {data.song.title}</div>
+        {loading && <div>Loading...</div>}
+        {error && <div>Error...</div>}
+
+        {song && (<div className={styles.container}>
+            <div>id: {song.id}</div>
+            <div>title: {song.title}</div>
+            <div>lyrics: {song.lyrics}</div>
         </div>)}
     </div>
 };
