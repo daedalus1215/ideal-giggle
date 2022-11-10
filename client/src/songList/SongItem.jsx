@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
-import { deleteSong } from '../queries';
+import { deleteSong, fetchSongs } from '../queries';
 import { hashHistory } from 'react-router';
 import styles from './SongItem.module.css';
 
@@ -21,6 +21,7 @@ const SongItem = ({ id, title }) => {
                 event.preventDefault();
                 mutateFunction()
                     .then(() => {
+                        window.location.reload();
                     });
             }}>
             <span><i className="fa fa-trash" />Delete</span>
