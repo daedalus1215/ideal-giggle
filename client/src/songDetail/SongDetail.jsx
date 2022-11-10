@@ -2,6 +2,8 @@ import React from 'react';
 import { useQuery } from '@apollo/client';
 import { fetchSong } from '../queries';
 import styles from './SongDetail.module.css';
+import LyricCreate from './LyricCreate';
+import LyricList from '../lyricList/LyricList';
 
 const SongDetail = ({ params }) => {
     const { loading, error, data } = useQuery(fetchSong, { variables: { id: params.id } });
@@ -18,7 +20,8 @@ const SongDetail = ({ params }) => {
         {song && (<div className={styles.container}>
             <div>id: {song.id}</div>
             <div>title: {song.title}</div>
-            <div>lyrics: {song.lyrics}</div>
+            {song?.lyrics && (<LyricList lyrics={song.lyrics} />)}
+            <LyricCreate songId={song.id}/>
         </div>)}
     </div>
 };
