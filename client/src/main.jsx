@@ -22,17 +22,24 @@ const link = from([
   errorLink,
   new HttpLink({ uri: 'http://localhost:4000/graphql' })
 ])
+// const client = new ApolloClient({
+//   link: link,
+//   cache: new InMemoryCache(),
+// });
+
+
 const client = new ApolloClient({
+  dataIdFromObject: o => o.id, // Tell apollo to use the id in the record to keep track of it and to tell React whenever a particular song is updated.
   link: link,
   cache: new InMemoryCache(),
-});
+})
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <ApolloProvider client={client}>
-      <Router history={hashHistory}>
-        <Route path="/" component={SongList} />
-        <Route path="/song/new" component={SongCreate} />
-        <Route path="/song/:id" component={SongDetail} />
-      </Router>
-    </ApolloProvider >
+  <ApolloProvider client={client}>
+    <Router history={hashHistory}>
+      <Route path="/" component={SongList} />
+      <Route path="/song/new" component={SongCreate} />
+      <Route path="/song/:id" component={SongDetail} />
+    </Router>
+  </ApolloProvider >
 )
