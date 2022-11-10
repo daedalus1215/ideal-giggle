@@ -17,7 +17,7 @@ const SongCreate = () => {
             refetchQueries: [{ fetchSongs }]
         }).then(() => {
             hashHistory.push('/');
-            window.location.reload();
+            window.location.reload(); // got to figure out how to reload with graphQL. Seems to be giving me an issue
         });
     };
 
