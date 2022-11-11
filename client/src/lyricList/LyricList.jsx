@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
 import React from 'react';
+import cn from 'classnames';
 import { likeLyric } from '../queries';
 import styles from './LyricList.module.css';
 
@@ -11,8 +12,8 @@ const LyricList = ({ lyrics }) => {
             <li
                 className={styles.li}
                 key={id}>
-                {content}
-                <i className="fa fa-thumbs-up"
+                <span className={styles.content}>{content}</span>
+                <i className={cn("fa fa-thumbs-up", styles.icon)}
                     onClick={() => mutateFunction({
                         variables: { id },
                         optimisticResponse: {
@@ -25,7 +26,7 @@ const LyricList = ({ lyrics }) => {
                         }
                     })}
                 ></i>
-                {likes}
+                <span className={styles.likes}>{likes}</span>
             </li>)}
     </ul>
 };
