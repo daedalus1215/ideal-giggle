@@ -5,6 +5,8 @@ const Song = mongoose.model('song');
 const Lyric = mongoose.model('lyric');
 const SongType = require('./song_type');
 const LyricType = require('./lyric_type');
+const UserType = require('./user_type');
+const AuthService = require('../services/auth');
 
 const mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -39,7 +41,18 @@ const mutation = new GraphQLObjectType({
       type: SongType,
       args: { id: { type: GraphQLID } },
       resolve(parentValue, { id }) {
-        return Song.findOneAndRemove({_id: id});
+        return Song.findOneAndRemove({ _id: id });
+      }
+    },
+    signup: {
+      type: UserType,
+      args: {
+        email: { type: GraphQLString },
+        password: { type: GraphQLString }
+      },
+      resolve(parentValue, { email, password }, req) {
+        // signup returns a promise, we need to return this promise, so graphQL will wait before it grabs the data.
+        return AuthService.signup({ email, password, req });
       }
     }
   }

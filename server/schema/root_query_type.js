@@ -28,7 +28,8 @@ const RootQuery = new GraphQLObjectType({
       resolve(parnetValue, { id }) {
         return Lyric.findById(id);
       }
-    }
+    },
+    dummyField: { type: GraphQLID }
   })
 });
 
