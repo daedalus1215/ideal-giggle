@@ -5,6 +5,7 @@ const SongType = require('./song_type');
 const LyricType = require('./lyric_type');
 const Lyric = mongoose.model('lyric');
 const Song = mongoose.model('song');
+const UserType = require('./user_type');
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -29,7 +30,12 @@ const RootQuery = new GraphQLObjectType({
         return Lyric.findById(id);
       }
     },
-    dummyField: { type: GraphQLID }
+    user: {
+      type: UserType,
+      resolve(parentValue, args, req) {
+        return req.user; // if user is signed in, it will return them. If not logged in it should return null or undefined.
+      }
+    }
   })
 });
 

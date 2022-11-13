@@ -54,6 +54,24 @@ const mutation = new GraphQLObjectType({
         // signup returns a promise, we need to return this promise, so graphQL will wait before it grabs the data.
         return AuthService.signup({ email, password, req });
       }
+    },
+    logout: {
+      type: UserType,
+      resolve(parentValue, args, req) {
+        const { user } = req; // need a reference to user before we log the user out. Otherwise we wouldnt be able to return the user for graphQL.
+        req.logout((e) => console.log(e)); // leverage passportjs
+        return user; // return the user for graphQL
+      }
+    },
+    login: {
+      type: UserType,
+      args: {
+        email: { type: GraphQLString },
+        password: { type: GraphQLString },
+      },
+      resolve(parentValue, { email, password }, req) {
+        return AuthService.login({ email, password, req });
+      }
     }
   }
 });

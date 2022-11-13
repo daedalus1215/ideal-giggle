@@ -71,5 +71,4 @@ function login({ email, password, req }) {
     })
 }
 
-
 module.exports = { signup, login };
